@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+ 
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Hospital Management System</title>
+    <style media="screen">
+         body {
+             color: #495057;
+         }
+ 
+         .jumbotron {
+             margin-top: 0;
+             margin-bottom: 0;
+         }
+ 
+         .jumbotron h1 {
+             text-align: center;
+             color: #28a745; /* Green color for headings */
+         }
+ 
+         .alert {
+             margin: 0;
+         }
+ 
+         .about-section {
+             background-color: #f8f9fa; /* Light gray background for the about section */
+             padding: 80px 0;
+         }
+ 
+         .about-section h1 {
+             color: #28a745; /* Green color for headings */
+         }
+ 
+         .about-section img {
+             width: 100%;
+             height: auto;
+             border-radius: 10px;
+             box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+         }
+ 
+         .about-section p {
+             font-size: 18px;
+             line-height: 1.6;
+             color: #495057;
+         }
+ 
+         .about-section .icon-box {
+             background-color: #fff;
+             padding: 20px;
+             border-radius: 10px;
+             box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+             text-align: center;
+             margin-bottom: 20px;
+         }
+ 
+         .icon-box i {
+             font-size: 36px;
+             color: #28a745;
+         }
+     </style>
+     <title>HMS</title>
+ </head>
+ 
+ <body>
+     {% include "hospital/navbar.html" %}
+     <br><br>
+     <div class="container-fluid about-section">
+         <div class="container">
+             <div class="row gx-5 align-items-center">
+                 <div class="col-lg-5 mb-5 mb-lg-0">
+                     <img class="img-fluid rounded" src="{% static 'images/abouthmsimg.jpg' %}" alt="Hospital Image">
+                 </div>
+                 <div class="col-lg-7">
+                     <div class="mb-4">
+                         <h1 class="display-4">Best Medical Care For Yourself and Your Family</h1>
+                     </div>
+                     <p><h3>Welcome to Our Hospital Management System</h3></p>
+                     <p>At Our Hospital Management System, we are committed to revolutionizing the way patients access healthcare services. With a focus on convenience, efficiency, and personalized care, we strive to make the process of finding the right doctor and receiving treatment as seamless as possible.</P>
+                        <p><h3>Our Mission</h3></p>
+                        <p>Our mission is to provide a comprehensive platform that connects patients with a diverse range of healthcare professionals, offering specialized care tailored to individual needs. We aim to empower patients to take control of their health by offering easy access to high-quality medical services.</p><p><h3>What Sets Us Apart</h3></p>
+                        <p>At Our Hospital Management System, we understand that every patient is unique, and their healthcare needs vary. That's why we have curated a network of experienced doctors representing various medical specialties. Whether you require a consultation with a cardiologist, a pediatrician, or an orthopedic surgeon, we have you covered.</p>
+                     <div class="row g-3 pt-3">
+                         <div class="col-sm-3 col-6">
+                             <div class="icon-box">
+                                 <i class="fa fa-3x fa-user-md mb-3"></i>
+                                 <h6 class="mb-0">Qualified<small class="d-block text-primary">Doctors</small></h6>
+                             </div>
+                         </div>
+                         <div class="col-sm-3 col-6">
+                             <div class="icon-box">
+                                 <i class="fa fa-3x fa-ambulance mb-3"></i>
+                                 <h6 class="mb-0">Free<small class="d-block text-primary">Ambulance</small></h6>
+                             </div>
+                         </div>
+                         <div class="col-sm-3 col-6">
+                             <div class="icon-box">
+                                 <i class="fa fa-3x fa-ambulance mb-3"></i>
+                                 <h6 class="mb-0">Free<small class="d-block text-primary">Ambulance</small></h6>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div>
+     {% include "hospital/footer.html" %}
+ </body>
+ 
+ </html>
+ 
