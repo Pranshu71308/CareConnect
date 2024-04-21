@@ -13,7 +13,6 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 
 
-
 # Create your views here.
 def home_view(request):
     if request.user.is_authenticated:
@@ -41,21 +40,6 @@ def patientclick_view(request):
         return HttpResponseRedirect('afterlogin')
     return render(request,'hospital/patientclick.html')
 
-
-
-
-# def admin_signup_view(request):
-#     form=forms.AdminSigupForm()
-#     if request.method=='POST':
-#         form=forms.AdminSigupForm(request.POST)
-#         if form.is_valid():
-#             user=form.save()
-#             user.set_password(user.password)
-#             user.save()
-#             my_admin_group = Group.objects.get_or_create(name='ADMIN')
-#             my_admin_group[0].user_set.add(user)
-#             return HttpResponseRedirect('adminlogin')
-#     return render(request,'hospital/adminsignup.html',{'form':form})
 
 def admin_signup_view(request):
     form = forms.AdminSigupForm()
@@ -619,31 +603,6 @@ def doctor_appointment_view(request):
     return render(request,'hospital/doctor_appointment.html',{'doctor':doctor})
 
 
-#############################################################################################################
-# @login_required(login_url='doctorlogin')
-# @user_passes_test(is_doctor)
-# def doctor_view_appointment_view(request):
-#     # doctor=models.Doctor.objects.get(user_id=request.user.id) #for profile picture of doctor in sidebar
-#     # appointments=models.Appointment.objects.all().filter(status=True,doctorId=request.user.id)
-#     # patientid=[]
-#     # for a in appointments:  
-#     #     patientid.append(a.patientId)
-#     # patients=models.Patient.objects.all().filter(status=True,user_id__in=patientid)
-#     # appointments=zip(appointments,patients)
-#     doctor=models.Doctor.objects.get(user_id=request.user.id)
-#     appointments=models.Appointment.objects.all().filter(status=True,doctorId=request.user.id).order_by('-id')
-#     patientid=[]
-#     for a in appointments:
-#         patientid.append(a.patientId)
-#     patients=models.Patient.objects.all().filter(status=True,user_id__in=patientid).order_by('-id')
-#     appointments=zip(appointments,patients)
-#     # mydict={
-#     #     'patientcount':patientcount,
-#     #     'appointmentcount':appointmentcount,
-#     #     'patientdischarged':patientdischarged,
-#     #     'appointments':appointments,
-#     #     'doctor':models.Doctor.objects.get(user_id=request.user.id), #for profile picture of doctor in sidebar
-#     # }
 @login_required(login_url='doctorlogin')
 @user_passes_test(is_doctor)
 def doctor_view_appointment_view(request):
@@ -652,9 +611,6 @@ def doctor_view_appointment_view(request):
     patient_ids = appointments.values_list('patientId', flat=True)
     patients = models.Patient.objects.filter(status=True, user_id__in=patient_ids)
     appointments = zip(appointments, patients)
-    # for appointment, patient in appointments:
-    #     print("Appointment Date:", appointment.appointmentDate,"Patient Name:", patient.user)
-
     return render(request,'hospital/doctor_view_appointment.html',{'appointments':appointments,'doctor':doctor})
 
 @login_required(login_url='doctorlogin')

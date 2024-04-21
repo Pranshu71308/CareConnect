@@ -1,77 +1,84 @@
 {% extends 'hospital/patient_base.html' %}
 {% load widget_tweaks %}
 {% block content %}
-  <head>
-    <style media="screen">
-      a:link {
-        text-decoration: none;
-      }
-      
-      .note {
-        text-align: center;
-        height: 80px;
-        background: -webkit-linear-gradient(left, #0072ff, #8811c5);
-        color: #fff;
-        font-weight: bold;
-        line-height: 80px;
-      }
-      
-      .form-content {
-        padding: 5%;
-        border: 1px solid #ced4da;
-        margin-bottom: 2%;
-      }
-      
-      .form-control {
-        border-radius: 1.5rem;
-      }
-      
-      .btnSubmit {
-        border: none;
-        border-radius: 1.5rem;
-        padding: 1%;
-        width: 20%;
-        cursor: pointer;
-        background: #0062cc;
-        color: #fff;
-      }
-      
-    </style>
+<head>
+  <style media="screen">
+    /* CSS for form styling */
+    .form-container {
+      background-color: #f7f7f7;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
 
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  </head>
-  <br /><br />
-  {% if message %}
-    <script>
-      var a = '{{message}}'
-      alert(a)
-    </script>
-  {% endif %}
+    .note {
+      text-align: center;
+      height: 60px;
+      background-color: #0072ff;
+      color: #fff;
+      font-weight: bold;
+      line-height: 60px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      
+    }
 
-  <!--- add appointment page-->
-  <form method="post">
-    {% csrf_token %}
-    <div class="container register-form">
-      <div class="form">
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-control {
+      border-radius: 5px;
+    }
+
+    .btnSubmit {
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      cursor: pointer;
+      background: #0062cc;
+      color: #fff;
+    }
+
+    .btnSubmit:hover {
+      background: #004aad;
+    }
+  </style>
+
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<br /><br />
+{% if message %}
+  <script>
+    var a = '{{message}}';
+    alert(a);
+  </script>
+{% endif %}
+
+<!--- add appointment page-->
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="form-container">
         <div class="note">
           <p>Book Appointment Details</p>
         </div>
-        <div class="form-content">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="form-group">
-                {% render_field appointmentForm.description class='form-control' placeholder='Description' %}
-              </div>
-              <div class="form-group">
-                {% render_field appointmentForm.doctorId class='form-control' placeholder='doctor' %}
-              </div>
-            </div>
+        <form method="post">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="description">Description</label>
+            {% render_field appointmentForm.description class='form-control' placeholder='Enter description' %}
+          </div>
+          <div class="form-group">
+            <label for="doctor">Select Doctor</label>
+            {% render_field appointmentForm.doctorId class='form-control' %}
           </div>
           <button type="submit" class="btnSubmit">Book</button>
-        </div>
+        </form>
       </div>
     </div>
-  </form>
+  </div>
+</div>
 {% endblock %}

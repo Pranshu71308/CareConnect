@@ -15,14 +15,18 @@
     }
 
     .row {
-      margin: 100px;
+      margin: 50px; 
+    }
+    .disabled {
+      pointer-events: none;
+      opacity: 0.5;
     }
   </style>
 </head>
 
 <div class="container">
   <div class="panel panel-primary">
-    <div class="panel-heading">
+    <div class="panel-heading" style="background-color: #007bff; color: #fff; text-align:center; padding: 10px;">
       <h6 class="panel-title">Discharge Patient</h6>
     </div>
     <table class="table table-hover" id="dev-table">
@@ -37,79 +41,52 @@
       </thead>
       {% for p in patients %}
       <tr>
-        <td> {{p.get_name}}</td>
-        <td>{{p.symptoms}}</td>
-        <td>{{p.mobile}}</td>
-        <td><a class="btn btn-primary btn-xs discharge-btn" href="{% url 'discharge-patient' p.id  %}">
-          <span class="glyphicon glyphicon-log-out"></span>
-        </a></td>
-        <td class="is-discharged">{{p.isDischarged}}</td>
+        <td>{{ p.get_name }}</td>
+        <td>{{ p.symptoms }}</td>
+        <td>{{ p.mobile }}</td>
+        <td>
+          <a class="btn btn-primary btn-xs discharge-btn{% if p.isDischarged %} disabled{% endif %}" href="{% url 'discharge-patient' p.id %}">
+            <span class="glyphicon glyphicon-log-out"></span>
+          </a>
+        </td>
+        <td class="is-discharged">{{ p.isDischarged }}</td>
       </tr>
       {% endfor %}
-    </table>  
+    </table>
   </div>
-
-
 </div>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
- {% comment %} <script>
-  $(document).ready(function() {
-    $('.discharge-btn').click(function(e) {
-      e.preventDefault(); // Prevent the default action of the link      
-      var dischargeLink = $(this).attr('href'); // Get the discharge link
-      // Show a confirmation dialog
-      if (confirm("Are you sure you want to discharge this patient?")) {
-        // If user confirms, redirect to the discharge link and disable the button
-        window.location.href = dischargeLink;
-        $(this).addClass('disabled'); // Add disabled class to the button
-        $(this).removeAttr('href'); // Remove the href attribute to disable link functionality
-        
-      }
-
-    });
-  });
-</script> {% endcomment %}
 <script>
   $(document).ready(function() {
     $('.discharge-btn').click(function(e) {
-      var dischargeLink = $(this).attr('href'); // Get the discharge link
-      var row = $(this).closest('tr'); // Get the row of the clicked button
-      var dischargevalue = $(this).val();
+      var dischargeLink = $(this).attr('href');
+      var row = $(this).closest('tr');
       
-      // Check if patient is already discharged
       if (row.find('.is-discharged').text().trim() === 'True') {
-        e.preventDefault(); // Prevent the default action of the link
+        e.preventDefault();
         console.log("Patient already discharged.");
-        return; // Exit the function if patient is already discharged
+        return;
       }
       
-      // Show a confirmation dialog
       if (confirm("Are you sure you want to discharge this patient?")) {
-        // If user confirms, disable the button and update isDischarged field
-        console.log("Discharge value:", dischargevalue);
         $.ajax({
           url: dischargeLink,
           success: function(data) {
-            row.find('.discharge-btn').removeAttr('href'); // Remove the href attribute to disable link functionality
-            row.find('.is-discharged').text('True'); // Update the isDischarged field value in the table
+            row.find('.discharge-btn').addClass('disabled');
+            row.find('.is-discharged').text('True');
             console.log("Patient discharged successfully.");
+          },
+          error: function(xhr, status, error) {
+            console.error("Error discharging patient:", error);
+            alert("An error occurred while discharging the patient. Please try again.");
           }
         });
       }
-    });
-  
-    // Loop through each .is-discharged element to check if discharge is true
-    $('.is-discharged').each(function() {
-      var dischargedval = $(this).text().trim(); // Get the text inside .is-discharged
-      var row = $(this).closest('tr'); // Get the row containing this .is-discharged element
-  
-      if (dischargedval === 'True') {
-        row.find('.discharge-btn').addClass('disabled'); // Add disabled class to the button
-        console.log("Patient already discharged.");
+      else{
+
       }
     });
   });
-  
-</script> 
+</script>
 {% endblock content %}
