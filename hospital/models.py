@@ -56,7 +56,10 @@ class Patient(models.Model):
         return self.user.id
     def __str__(self):
         return self.user.first_name+" ("+self.symptoms+")"
-
+    def save(self, *args, **kwargs):
+        if self.isAppointed:
+            self.isDischarged = False
+        super(Patient, self).save(*args, **kwargs)
 
 class Appointment(models.Model):
     patientId=models.PositiveIntegerField(null=True)

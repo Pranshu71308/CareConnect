@@ -408,6 +408,8 @@ def discharge_patient_view(request, pk):
 
         # Update isDischarged field of Patient
         patient.isDischarged = True
+        patient.isAppointed = False
+        
         patient.save()
 
         patientDict = {
@@ -506,6 +508,12 @@ def admin_add_appointment_view(request):
             appointment.patientName=models.User.objects.get(id=request.POST.get('patientId')).first_name
             appointment.status=True
             appointment.save()
+
+            # Update the isAppointed field in the Patient model
+            patient = models.Patient.objects.get(user_id=appointment.patientId)
+            patient.isAppointed = True
+            patient.save()
+
         return HttpResponseRedirect('admin-view-appointment')
     return render(request,'hospital/admin_add_appointment.html',context=mydict)
 
@@ -522,6 +530,13 @@ def approve_appointment_view(request,pk):
     appointment=models.Appointment.objects.get(id=pk)
     appointment.status=True
     appointment.save()
+
+    # Update the isAppointed field in the Patient model
+    patient = models.Patient.objects.get(user_id=appointment.patientId)
+    patient.isAppointed = True
+
+    patient.save()
+
     return redirect(reverse('admin-approve-appointment'))
 
 @login_required(login_url='adminlogin')
