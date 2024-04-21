@@ -4,6 +4,9 @@
   <head>
     <meta charset="UTF-8" />
     <title>HMS</title>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
@@ -27,8 +30,8 @@
       }
       
       /*---------------------------------------
-                   Social section
-                -----------------------------------------*/
+                         Social section
+                      -----------------------------------------*/
       footer {
         padding: 0px 0px 0px 0px;
         background-color: black;
@@ -84,14 +87,14 @@
       main {
         position: relative;
         height: 100vh;
-            }
+      }
       
       .menu {
         background: #13c5dd;
         height: 100vh;
         width: 240px;
         position: fixed;
-        
+      
         left: 0;
         z-index: 5;
         outline: none;
@@ -148,7 +151,7 @@
         outline: none;
       }
       .navbar {
-        border-radius: 0px !important; 
+        border-radius: 0px !important;
       }
       @media screen and (max-width: 900px) and (min-width: 400px) {
         body {
@@ -291,21 +294,19 @@
     <main>
       <!-- nav start -->
       <div class="bs-example">
-        <nav class="navbar navbar-expand-md navbar-dark " style="background:#13C5DD;">
+        <nav class="navbar navbar-expand-md navbar-dark" style="background:#13C5DD;">
           <a href="/admin-dashboard" class="navbar-brand" style="color: black;">HOSPITAL MANAGEMENT</a>
           <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
             <div class="navbar-nav" style=" margin-left: 90%;">
               <form method="post" class="nav-item nav-link" action="{% url 'logout' %}">
                 {% csrf_token %}
-                <button type="submit" class="btn btn-primary">Logout</button>
+                <button type="submit" class="btn logoutbtn" style="background-color: #007bff; color: #fff;">Logout</button>
               </form>
             </div>
           </div>
         </nav>
       </div>
       <!-- nav end -->
-
-      
 
       <!-- content start -->
       {% block content %}

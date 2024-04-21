@@ -46,6 +46,7 @@ class Patient(models.Model):
     admitDate=models.DateField(auto_now=True)
     status=models.BooleanField(default=False)
     isDischarged = models.BooleanField(default=False)  # New field added for discharge status
+    isAppointed = models.BooleanField(default=False)
 
     @property
     def get_name(self):
